@@ -20,7 +20,7 @@ validate :: [[Int]] -> IO ()
 validate field =
     let eitherBetweenBoolArray = checkTable $ cornersAndAloneOnes field
         correctTable = array (1,10) ((1,4):(2,3):(3,2):(4,1):[(i,0) | i <- [5..10]])
-        in case eitherBetweenBoolArray of 
+        in case eitherBetweenBoolArray of
                 Left False -> mapM_ print m >> print False
                 Right hashTable -> mapM_ print m >> print (hashTable == correctTable)
     where
