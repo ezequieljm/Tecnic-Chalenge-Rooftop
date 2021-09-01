@@ -10,7 +10,6 @@ beforeEncode msgUser rails
         buildDiagonal x y tx ix
             | x > tx = buildInvertedDiagonal (x - 2) y tx ix
             | otherwise = (x,y) : buildDiagonal (x + 1) (y + 1) tx ix
-
         buildInvertedDiagonal :: Int -> Int -> Int -> Int -> [(Int,Int)]
         buildInvertedDiagonal x y tx ix 
             | x < ix = buildDiagonal (x + 2) y tx ix
