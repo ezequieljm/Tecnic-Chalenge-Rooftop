@@ -8,8 +8,12 @@ makeFigure numSize = mapM_ print $ makeMatrix numSize
     where
         makeMatrix :: Int -> [[Int]]
         makeMatrix size
-            | even size = if checkNoFourEven size then createSpiralMatrix size matrixSixNoFour else createSpiralMatrix size matrixSix
-            | otherwise = if checkNoFourOdd size then createSpiralMatrix size matrixFiveNoFour else createSpiralMatrix size matrixFiveFour
+            | even size = 
+                if checkNoFourEven size then createSpiralMatrix size matrixSixNoFour 
+                                        else createSpiralMatrix size matrixSix
+            | otherwise = 
+                if checkNoFourOdd size then createSpiralMatrix size matrixFiveNoFour 
+                                       else createSpiralMatrix size matrixFiveFour
             where 
                 createSpiralMatrix :: Int -> [[Int]] -> [[Int]]
                 createSpiralMatrix dimension currentMatrix  
@@ -42,30 +46,6 @@ makeFigure numSize = mapM_ print $ makeMatrix numSize
                 matrixFiveFour = [[0,0,0,0,0],[1,1,1,1,0],[0,0,0,1,0],[0,1,1,1,0],[0,0,0,0,0]]
                 matrixSix = [[0,0,0,0,0,0],[1,1,1,1,1,0],[0,0,0,0,1,0],[0,1,0,0,1,0],[0,1,1,1,1,0],[0,0,0,0,0,0]]
                 matrixSixNoFour = [[1,1,1,1,1,1],[0,0,0,0,0,1],[1,1,1,1,0,1],[1,0,0,1,0,1],[1,0,0,0,0,1],[1,1,1,1,1,1]]
-
-repNum :: Int -> Int -> [Int]
-repNum 1 lenMatrix = replicate lenMatrix 1
-repNum 0 lenMatrix = replicate lenMatrix 0
-
-controlMaybeInt :: String -> Maybe Int
-controlMaybeInt = readMaybe
-
-maybeLessThanFive :: Int -> Maybe Int
-maybeLessThanFive x = if x < 5 then Nothing else Just x
-
-checkValue :: String -> Maybe Int
-checkValue inputUser = controlMaybeInt inputUser >>= maybeLessThanFive
-
-controlInput :: Maybe Int -> IO Int
-controlInput Nothing = do
-    putStrLn "The value isn't valid. Pleas re-enter"
-    newInput <- getLine
-    controlInput $ checkValue newInput
-controlInput (Just x) = return x
-
-main :: IO ()
-main = do
-    putStrLn "Enter a number: "
-    value       <- getLine
-    validNumber <- controlInput $ checkValue value
-    makeFigure validNumber
+                repNum :: Int -> Int -> [Int]
+                repNum 1 lenMatrix = replicate lenMatrix 1
+                repNum 0 lenMatrix = replicate lenMatrix 0
